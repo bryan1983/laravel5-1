@@ -6,37 +6,46 @@
  * Date: 12/09/2015
  * Time: 10:51
  */
+use Curso\Entities\User;
+use Curso\Entities\UserProfile;
 
-use \Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
-
-class UserTableSeeder extends Seeder
+class UserTableSeeder extends BaseSeeder
 {
-    public function run(){
-
-        // use the factory to create a Faker\Generator instance
-        $faker = Faker::create();
-
-        for($i = 0; $i < 30; $i++) {
-
-
-            $id = \DB::table('users')->insertGetId(array(
-                'first_name' => $faker->firstName,
-                'last_name' => $faker->lastName,
-                'email' => $faker->unique()->email,
-                'password' => \Hash::make('123456'),
-                'type' => $faker->randomElement(['editor','contributor','subscriber','user'])
-            ));
-
-            \DB::table('user_profiles')->insert(array(
-                'user_id'   => $id,
-                'bio'       => $faker->paragraph(rand(2, 4)),
-                'twitter'   => 'http://twitter.com/' . $faker->userName,
-                'website'   => 'http://www.'. $faker->domainName,
-                'birthdate' => $faker->dateTimeBetween('-45 years', '-15 years')->format('Y-m-d')
-            ));
-
-        }
+    public function getModel(){
+        return new User;
     }
 
+    public function getDummyData(\Faker\Generator $faker, array $customValues = array())
+    {
+        return [
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'email' => $faker->unique()->email,
+            'password' => bcrypt('123456'),
+            'type' => $faker->randomElement(['editor', 'contributor', 'subscriber', 'user'])
+        ];
+    }
+
+    public function run(){
+        $this->createAdmin();
+        $this->createMultiple(30);
+    }
+
+    private function createAdmin(){
+        $this->create([
+            'first_name'=> 'Abraham',
+            'last_name' => 'Gómez',
+            'email'     => 'abri.gomez@gmail.com',
+            'password'  => bcrypt('lolailo'),
+            'type'      => 'admin'
+        ]);
+
+        UserProfile::create([
+            'user_id'   => 1,
+            'twitter'   => 'http://twitter.com/abrahamgm',
+            'website'   => 'http://www.github.com/bryan1984',
+            'birthdate' => '1983/06/22',
+            'bio'       => 'Usuario administrador'
+        ]);
+    }
 }
