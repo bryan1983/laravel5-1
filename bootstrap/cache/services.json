@@ -22,12 +22,12 @@
         "Illuminate\\Translation\\TranslationServiceProvider",
         "Illuminate\\Validation\\ValidationServiceProvider",
         "Illuminate\\View\\ViewServiceProvider",
-        "Collective\\Html\\HtmlServiceProvider",
         "Curso\\Providers\\AppServiceProvider",
         "Curso\\Providers\\BusServiceProvider",
         "Curso\\Providers\\ConfigServiceProvider",
         "Curso\\Providers\\EventServiceProvider",
-        "Curso\\Providers\\RouteServiceProvider"
+        "Curso\\Providers\\RouteServiceProvider",
+        "Curso\\Providers\\HtmlServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -129,10 +129,10 @@
         "auth.password.tokens": "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider",
         "translator": "Illuminate\\Translation\\TranslationServiceProvider",
         "translation.loader": "Illuminate\\Translation\\TranslationServiceProvider",
-        "html": "Collective\\Html\\HtmlServiceProvider",
-        "form": "Collective\\Html\\HtmlServiceProvider",
-        "Collective\\Html\\HtmlBuilder": "Collective\\Html\\HtmlServiceProvider",
-        "Collective\\Html\\FormBuilder": "Collective\\Html\\HtmlServiceProvider"
+        "html": "Curso\\Providers\\HtmlServiceProvider",
+        "form": "Curso\\Providers\\HtmlServiceProvider",
+        "Collective\\Html\\HtmlBuilder": "Curso\\Providers\\HtmlServiceProvider",
+        "Collective\\Html\\FormBuilder": "Curso\\Providers\\HtmlServiceProvider"
     },
     "when": {
         "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider": [],
@@ -146,6 +146,6 @@
         "Illuminate\\Redis\\RedisServiceProvider": [],
         "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider": [],
         "Illuminate\\Translation\\TranslationServiceProvider": [],
-        "Collective\\Html\\HtmlServiceProvider": []
+        "Curso\\Providers\\HtmlServiceProvider": []
     }
 }

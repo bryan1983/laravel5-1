@@ -12,9 +12,6 @@
 */
 
 Route::pattern('id', '\d+');
-
-Route::get('admin/news/{id}', 'AdminNewsController@details');
-
 /*
 Route::get('admin/news/{id}', function($id)
 {
@@ -22,9 +19,36 @@ Route::get('admin/news/{id}', function($id)
 }); //-->where('id', '\d+');
 */
 
-Route::get('/', 'WelcomeController@index');
+/* Controladores para los Tickets */
+Route::get('/', [
+	'as' 	=> 'tickets.latest',
+	'uses' 	=> 'TicketsController@latest'
+]);
+
+Route::get('/populares', [
+	'as' 	=> 'tickets.popular',
+	'uses'	=> 'TicketsController@popular'
+]);
+
+Route::get('/pendientes', [
+	'as' 	=> 'tickets.open',
+	'uses'	=> 'TicketsController@open'
+]);
+
+Route::get('/tutoriales', [
+	'as'	=> 'tickets.closed',
+	'uses'	=> 'TicketsController@closed'
+]);
+
+Route::get('/solicitud/{id}', [
+	'as'	=> 'tickets.details',
+	'uses'	=> 'TicketsController@details'
+]);
+/* Tickets */
 
 Route::get('home', 'HomeController@index');
+
+Route::get('admin/news/{id}', 'AdminNewsController@details');
 
 Route::controllers([
 	'users'		=> 'UsersController',
@@ -36,24 +60,7 @@ Route::get('contactos', function(){
 	return "Contactos!!!";
 });
 
-/// Ruta a una vista
-/*Route::get('example', function(){
-
-	$user = "Abraham";
-
-	return view('examples.template', compact('user'));
-});*/
-
 // Creamos una ruta para el módulo de usuarios
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function(){
-
 	Route::resource('users', 'UsersController');
-
 });
-
-Route::get('login', 'WelcomeController@index');
-
-Route::get('{slugUrl}', function($slugUrl){
-	return 'Post: ' . $slugUrl;
-});
-
