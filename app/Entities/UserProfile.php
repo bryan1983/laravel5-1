@@ -1,8 +1,6 @@
 <?php namespace Curso\Entities;
 
-use Illuminate\Database\Eloquent\Model;
-
-class UserProfile extends Model {
+class UserProfile extends Entity {
 
 	//
     public function getAgeAttribute()

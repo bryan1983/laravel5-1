@@ -106,11 +106,19 @@ return [
     */
 
     'attributes' => [
-        'email' => 'Correo Electrónico',
-        'password' => 'Contraseña',
+        'first_name'=> 'Nombre',
+        'last_name' => 'Apellidos',
+        'email'     => 'Correo Electrónico',
+        'password'  => 'Contraseña',
+        'confirm_password' => 'Confirmar Contraseña',
         'remember'  => 'Recuérdame',
         'submit'	=> 'Entrar',
+        'register'  => 'Registrar',
         'forgot'	=> '¿Olvidaste tu contraseña?'
     ],
+
+    'errors'    => [
+        'message'   => '<strong>Ooops!</strong> Hay algunos errores.<br><br>'
+    ]
 
 ];

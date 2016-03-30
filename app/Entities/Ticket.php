@@ -2,9 +2,33 @@
 
 namespace Curso\Entities;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model
+class Ticket extends Entity
 {
-    //
+    public function comments()
+    {
+        // For php <= 5.4
+        //return $this->hasMany('Curso\Entities\TicketComment')
+
+        // For php > 5.5
+        //return $this->hasMany(TicketComment::class);
+
+        // For all php
+        return $this->hasMany(TicketComment::getClass());
+    }
+
+    public function voters()
+    {
+        return $this->belongsToMany(User::getClass(), 'ticket_votes');
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::getClass());
+    }
+
+    public function getOpenAttribute()
+    {
+        return $this->status == 'open';
+    }
 }

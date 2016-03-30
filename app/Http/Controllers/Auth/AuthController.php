@@ -1,8 +1,10 @@
-<?php namespace Curso\Http\Controllers\Auth;
+<?php
+namespace Curso\Http\Controllers\Auth;
 
+use Curso\Entities\User;
+use Validator;
 use Curso\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\Registrar;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
@@ -18,21 +20,53 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers;
+	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+	/**
+	 * Where to redirect users after login / registration
+	 * @var string
+	 */
+	protected $redirectTo = '/';
 
 	/**
 	 * Create a new authentication controller instance.
-	 *
-	 * @param  \Illuminate\Contracts\Auth\Guard  $auth
-	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
 	 * @return void
 	 */
-	public function __construct(Guard $auth, Registrar $registrar)
+	public function __construct()
 	{
-		$this->auth = $auth;
-		$this->registrar = $registrar;
-
 		$this->middleware('guest', ['except' => 'getLogout']);
+	}
+
+	/**
+	 * Get a validator for an incoming registration request.
+	 *
+	 * @param  array  $data
+	 * @return \Illuminate\Contracts\Validation\Validator
+	 */
+	protected function validator(array $data)
+	{
+		return Validator::make($data, [
+			'first_name' => 'required|max:255',
+			'last_name' => 'required|max:255',
+			'email' => 'required|email|max:255|unique:users',
+			'password' => 'required|confirmed|min:6',
+		]);
+	}
+
+	/**
+	 * Create a new user instance after a valid registration.
+	 *
+	 * @param  array  $data
+	 * @return User
+	 */
+	protected function create(array $data)
+	{
+		return User::create([
+			'first_name' => $data['first_name'],
+			'last_name' => $data['last_name'],
+			'email' => $data['email'],
+			'password' => bcrypt($data['password'])
+		]);
 	}
 
 	/**
@@ -42,18 +76,17 @@ class AuthController extends Controller {
 	 */
 	protected function getFailedLoginMessage()
 	{
-		dd(trans('passwords.credentials.invalid'));
 		return trans('passwords.credentials.invalid');
 	}
 
-	/**
-	 * Get the path to the login route.
+		/**
+	 * Get the post register / login redirect path.
 	 *
 	 * @return string
 	 */
-	public function loginPath()
+	public function redirectPath()
 	{
-		return route('login');
+		return '/';
 	}
 
 }

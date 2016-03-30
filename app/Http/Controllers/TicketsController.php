@@ -2,6 +2,8 @@
 
 namespace Curso\Http\Controllers;
 
+use Curso\Entities\Ticket;
+use Curso\Entities\TicketComment;
 use Illuminate\Http\Request;
 
 use Curso\Http\Requests;
@@ -11,7 +13,9 @@ class TicketsController extends Controller
 {
     public function latest()
     {
-        return view('tickets/list');
+        $tickets = Ticket::orderBy('created_at','DESC')->paginate(5);
+
+        return view('tickets/list', compact('tickets'));
     }
 
     public function popular()
@@ -21,16 +25,19 @@ class TicketsController extends Controller
 
     public function open()
     {
-        return view('tickets/list');
+        $tickets = Ticket::where('status', 'open')->paginate(5);
+        return view('tickets/list', compact('tickets'));
     }
 
     public function closed()
     {
-        return view('tickets/list');
+        $tickets = Ticket::where('status', 'closed')->paginate(5);
+        return view('tickets/list', compact('tickets'));
     }
 
     public function details($id)
     {
-        return view('tickets/details');
+        $ticket = Ticket::findOrFail($id);
+        return view('tickets/details', compact('ticket'));
     }
 }

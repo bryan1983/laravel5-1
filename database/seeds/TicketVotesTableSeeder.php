@@ -25,6 +25,6 @@ class TicketVotesTableSeeder extends BaseSeeder
 
     public function run()
     {
-        $this->createMultiple(30);
+        $this->createMultiple(60);
     }
 }

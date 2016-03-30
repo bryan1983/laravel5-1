@@ -46,7 +46,12 @@ Route::get('/solicitud/{id}', [
 ]);
 /* Tickets */
 
-Route::get('home', 'HomeController@index');
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController'
+]);
+
+/*Route::get('home', 'HomeController@index');
 
 Route::get('admin/news/{id}', 'AdminNewsController@details');
 
@@ -58,7 +63,7 @@ Route::controllers([
 
 Route::get('contactos', function(){
 	return "Contactos!!!";
-});
+});*/
 
 // Creamos una ruta para el módulo de usuarios
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function(){

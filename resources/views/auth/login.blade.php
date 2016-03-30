@@ -1,24 +1,15 @@
-@extends('app')
+@extends('layout')
 
 @section('content')
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
+				<div class="panel-heading">{{ trans('auth.labels.login') }}</div>
 				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> Por favor, corrige los siguientes errores.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+					@include('partials/errors')
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('login') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('auth/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">

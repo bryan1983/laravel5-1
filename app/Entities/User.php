@@ -1,12 +1,12 @@
-<?php namespace Curso\Entities;
+<?php
+namespace Curso\Entities;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class User extends Entity implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
 
@@ -44,16 +44,26 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasOne('Curso\UserProfile');
 	}
 
+	public function tickets()
+	{
+		return $this->hasMany(Ticket::getClass());
+	}
+
+	public function voted()
+	{
+		return $this->belongsToMany(Ticket::getClass(), 'ticket_votes');
+	}
+
 	public function getFullNameAttribute()
 	{
 		return $this->first_name .' '.$this->last_name;
 	}
 
-	public function setPasswordAttribute($value)
+	/*public function setPasswordAttribute($value)
 	{
 		if(!empty($value))
 			$this->attributes['password'] = bcrypt($value);
-	}
+	}*/
 
 	public function scopeName($query, $name)
 	{
