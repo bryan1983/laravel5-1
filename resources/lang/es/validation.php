@@ -114,7 +114,8 @@ return [
         'remember'  => 'Recuérdame',
         'submit'	=> 'Entrar',
         'register'  => 'Registrar',
-        'forgot'	=> '¿Olvidaste tu contraseña?'
+        'forgot'	=> '¿Olvidaste tu contraseña?',
+        'title'     => 'Título'
     ],
 
     'errors'    => [

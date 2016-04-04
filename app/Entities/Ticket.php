@@ -5,6 +5,9 @@ namespace Curso\Entities;
 
 class Ticket extends Entity
 {
+
+    protected $fillable = ['title', 'status'];
+
     public function comments()
     {
         // For php <= 5.4
@@ -19,12 +22,12 @@ class Ticket extends Entity
 
     public function voters()
     {
-        return $this->belongsToMany(User::getClass(), 'ticket_votes');
+        return $this->belongsToMany(User::getClass(), 'ticket_votes')->withTimestamps();
     }
 
     public function author()
     {
-        return $this->belongsTo(User::getClass());
+        return $this->belongsTo(User::getClass(), 'user_id');
     }
 
     public function getOpenAttribute()

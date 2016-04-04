@@ -26,5 +26,22 @@ return array(
     'status' => array(
         'open'  => 'Abierta',
         'closed'=> 'Finalizada'
+    ),
+
+    /* Formulario */
+    'form' => array(
+        'create' => array(
+            'title'     => 'Nueva Solicitud',
+            'submit'    => 'Enviar Solicitud'
+        ),
+
+        'details' => array(
+            'button_votes'  => 'Votar',
+            'button_noVotes' => 'Quitar Voto',
+            'title_newComment' => 'Nuevo Comentario',
+            'comments'      => 'Comentarios:',
+            'links'         => 'Enlace:',
+            'submit'        => 'Enviar Comentario'
+        )
     )
 );

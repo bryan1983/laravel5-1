@@ -11,7 +11,7 @@
 
             <p class="date-t">
                 <span class="glyphicon glyphicon-time"></span>
-                {{ $ticket->created_at->format('d/m/Y h:ia') }}
+                {{ $ticket->created_at->format('d/m/Y h:ia') }} - {{  $ticket->author->full_name }}
             </p>
 
             <h4 class="label label-info news">
@@ -24,27 +24,35 @@
                 @endforeach
             </p>
 
-            <form method="POST" action="http://teachme.dev/votar/5" accept-charset="UTF-8"><input name="_token" type="hidden" value="VBIv3EWDAIQuLRW0cGwNQ4OsDKoRhnK2fAEF6UbQ">
-                <!--button type="submit" class="btn btn-primary">Votar</button-->
+            @if(! auth()->user()->hasVoted($ticket))
+                {!! Form::open(['route' => ['votes.submit', $ticket->id], 'method' => 'POST']) !!}
+                    <button type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-thumbs-up"></span> {{ trans('tickets.form.details.button_votes') }}
+                    </button>
+                {!! Form::close() !!}
+            @else
+                {!! Form::open(['route' => ['votes.destroy', $ticket->id], 'method' => 'DELETE']) !!}
                 <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-thumbs-up"></span> Votar
+                    <span class="glyphicon glyphicon-thumbs-down"></span> {{ trans('tickets.form.details.button_noVotes') }}
                 </button>
-            </form>
+                {!! Form::close() !!}
+            @endif
 
-            <h3>Nuevo Comentario</h3>
+            <h3>{{ trans('tickets.form.details.title_newComment') }}</h3>
 
-
-            <form method="POST" action="http://teachme.dev/comentar/5" accept-charset="UTF-8"><input name="_token" type="hidden" value="VBIv3EWDAIQuLRW0cGwNQ4OsDKoRhnK2fAEF6UbQ">
+            {!! Form::open(['route' => ['comments.submit', $ticket->id], 'method' => 'POST']) !!}
                 <div class="form-group">
-                    <label for="comment">Comentarios:</label>
-                    <textarea rows="4" class="form-control" name="comment" cols="50" id="comment"></textarea>
+                    {!! Form::label('comment', trans('tickets.form.details.comments')) !!}
+                    {!! Form::textarea('comment', null, ['class' => 'form-control', 'rows' => 4, 'cols' => '50']) !!}
+                    <!-- <textarea rows="4" class="form-control" name="comment" cols="50" id="comment"></textarea> -->
                 </div>
                 <div class="form-group">
-                    <label for="link">Enlace:</label>
-                    <input class="form-control" name="link" type="text" id="link">
+                    {!! Form::label('link', trans('tickets.form.details.links')) !!}
+                    {!! Form::text('link', null, ['class' => 'form-control']) !!}
+                    <!-- <input class="form-control" name="link" type="text" id="link"> -->
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar comentario</button>
-            </form>
+                {!! Form::submit(trans('tickets.form.details.submit'), ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
 
             <h3>Comentarios ({{ count($ticket->comments) }})</h3>
 

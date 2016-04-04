@@ -51,6 +51,40 @@ Route::controllers([
 	'password' => 'Auth\PasswordController'
 ]);
 
+// Creamos un grupo de rutas para el módulo de auth
+Route::group(['middleware' => ['auth']], function(){
+	// Crear Solicitud
+	Route::get('/solicitar', [
+		'as' 	=> 'tickets.create',
+		'uses'	=> 'TicketsController@create'
+	]);
+	Route::post('/solicitar', [
+		'as'	=> 'tickets.store',
+		'uses'	=> 'TicketsController@store'
+	]);
+
+	// Votar
+	Route::post('votar/{id}', [
+		'as' 	=> 'votes.submit',
+		'uses'	=> 'VotesController@submit'
+	]);
+	Route::delete('votar/{id}', [
+		'as'	=> 'votes.destroy',
+		'uses'	=> 'VotesController@destroy'
+	]);
+
+	// Comentarios
+	Route::post('comentar/{id}', [
+		'as'	=> 'comments.submit',
+		'uses'	=> 'CommentsController@submit'
+	]);
+});
+
+// Creamos una ruta para el módulo de usuarios
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function(){
+	Route::resource('users', 'UsersController');
+});
+
 /*Route::get('home', 'HomeController@index');
 
 Route::get('admin/news/{id}', 'AdminNewsController@details');
@@ -65,7 +99,3 @@ Route::get('contactos', function(){
 	return "Contactos!!!";
 });*/
 
-// Creamos una ruta para el módulo de usuarios
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function(){
-	Route::resource('users', 'UsersController');
-});

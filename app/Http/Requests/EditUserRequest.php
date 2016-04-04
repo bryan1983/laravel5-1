@@ -1,4 +1,5 @@
-<?php namespace Curso\Http\Requests;
+<?php
+namespace Curso\Http\Requests;
 
 use Curso\Http\Requests\Request;
 use Illuminate\Routing\Route;
@@ -13,7 +14,6 @@ class EditUserRequest extends Request {
 
 	public function __construct(Route $route)
 	{
-
 		$this->route = $route;
 	}
 
