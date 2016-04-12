@@ -139,7 +139,7 @@ return [
 		/**
 		 * Vendor Services Providers
 		 */
-
+		'Barryvdh\Debugbar\ServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -204,6 +204,7 @@ return [
 		 */
 		'Form' => 'Collective\Html\FormFacade',
 		'Html' => 'Collective\Html\HtmlFacade',
+		'Debugbar' => 'Barryvdh\Debugbar\Facade',
 	],
 
 ];

@@ -13,11 +13,12 @@
             <span class="glyphicon glyphicon-thumbs-down"></span> No votar
         </a>
         --}}
+        {{--
         <a href="{{ route('tickets.details', $ticket) }}">
             <span class="votes-count">{{ $ticket->voters()->count() }} votos</span>
             - <span class="comments-count">{{ $ticket->comments()->count() }} comentarios</span>.
         </a>
-
+        --}}
     <p class="date-t">
         <span class="glyphicon glyphicon-time"></span>
         {{ $ticket->created_at->format('d/m/Y h:ia') }} - {{ $ticket->author->full_name }}
