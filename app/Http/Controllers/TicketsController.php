@@ -4,6 +4,7 @@ namespace Curso\Http\Controllers;
 
 use Curso\Entities\Ticket;
 use Curso\Entities\TicketComment;
+use Curso\Repositories\TicketRepository;
 use Illuminate\Auth\Guard;
 use Illuminate\Http\Request;
 
@@ -13,11 +14,20 @@ use Illuminate\Support\Facades\Redirect;
 
 class TicketsController extends Controller
 {
+    /**
+     * @var TicketRepository
+     */
+    private $TicketRepository;
+
+    public function __construct(TicketRepository $TicketRepository)
+    {
+        $this->TicketRepository = $TicketRepository;
+    }
 
     public function latest()
     {
-        $tickets = Ticket::orderBy('created_at','DESC')->with('author')->paginate(5);
-
+        //$tickets = Ticket::orderBy('created_at','DESC')->with('author')->paginate(5);
+        $tickets = $this->TicketRepository->paginateLatest();
         return view('tickets/list', compact('tickets'));
     }
 
@@ -28,19 +38,19 @@ class TicketsController extends Controller
 
     public function open()
     {
-        $tickets = Ticket::where('status', 'open')->paginate(5);
+        $tickets = $this->TicketRepository->paginateOpen();
         return view('tickets/list', compact('tickets'));
     }
 
     public function closed()
     {
-        $tickets = Ticket::where('status', 'closed')->paginate(5);
+        $tickets = $this->TicketRepository->paginateClosed();
         return view('tickets/list', compact('tickets'));
     }
 
     public function details($id)
     {
-        $ticket = Ticket::findOrFail($id);
+        $ticket = $this->TicketRepository->findOrFail($id);
         return view('tickets/details', compact('ticket'));
     }
 
@@ -55,17 +65,7 @@ class TicketsController extends Controller
             'title' => 'required|max:120'
         ]);
 
-        $ticket = $auth->user()->tickets()->create([
-            'title'     =>  $request->get('title'),
-            'status'    => 'open'
-        ]);
-
-        /*$ticket = new Ticket();
-        $ticket->title = $request->get('title');
-        $ticket->status = 'open';
-        $ticket->user_id = $auth->user()->id;
-        $ticket->save();*/
-
+        $ticket = $this->TicketRepository->openNew($auth->user(), $request->get('title'));
         return Redirect::route('tickets.details', $ticket->id);
     }
 }

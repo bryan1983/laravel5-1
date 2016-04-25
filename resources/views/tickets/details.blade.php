@@ -29,19 +29,20 @@
                     <span class="label label-info">{{ $user->full_name }}</span>
                 @endforeach
             </p>
-
-            @if(! auth()->user()->hasVoted($ticket))
-                {!! Form::open(['route' => ['votes.submit', $ticket->id], 'method' => 'POST']) !!}
+            @if(Auth::check())
+                @if(! auth()->user()->hasVoted($ticket))
+                    {!! Form::open(['route' => ['votes.submit', $ticket->id], 'method' => 'POST']) !!}
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-thumbs-up"></span> {{ trans('tickets.form.details.button_votes') }}
+                        </button>
+                    {!! Form::close() !!}
+                @else
+                    {!! Form::open(['route' => ['votes.destroy', $ticket->id], 'method' => 'DELETE']) !!}
                     <button type="submit" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-thumbs-up"></span> {{ trans('tickets.form.details.button_votes') }}
+                        <span class="glyphicon glyphicon-thumbs-down"></span> {{ trans('tickets.form.details.button_noVotes') }}
                     </button>
-                {!! Form::close() !!}
-            @else
-                {!! Form::open(['route' => ['votes.destroy', $ticket->id], 'method' => 'DELETE']) !!}
-                <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-thumbs-down"></span> {{ trans('tickets.form.details.button_noVotes') }}
-                </button>
-                {!! Form::close() !!}
+                    {!! Form::close() !!}
+                @endif
             @endif
 
             <h3>{{ trans('tickets.form.details.title_newComment') }}</h3>

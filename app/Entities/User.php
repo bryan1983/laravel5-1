@@ -60,20 +60,6 @@ class User extends Entity implements AuthenticatableContract, CanResetPasswordCo
 		return $this->voted()->where('ticket_id', $ticket->id)->count();
 	}
 
-	public function vote(Ticket $ticket)
-	{
-		if(! $this->hasVoted($ticket)){
-			$this->voted()->attach($ticket);
-			return true;
-		}else
-			return false;
-	}
-
-	public function unvote(Ticket $ticket)
-	{
-		$this->voted()->detach($ticket);
-	}
-
 	public function getFullNameAttribute()
 	{
 		return $this->first_name .' '.$this->last_name;
