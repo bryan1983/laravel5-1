@@ -1,18 +1,20 @@
-<div data-id="25" class="well well-sm request">
+<div data-id="{{ $ticket->id }}" class="well well-sm ticket">
     <h4 class="list-title">
         {{ $ticket->title }}
         @include('tickets/partials/estado', compact('ticket'))
     </h4>
     <p>
-        {{--
-        <a href="#" class="btn btn-primary btn-vote" title="Votar por este tutorial">
+        @if(Auth::check())
+        <a href="#" {!! Html::classes(['btn btn-primary btn-vote', 'hidden' => auth()->user()->hasVoted($ticket)]) !!}
+            title="Votar por este tutorial">
             <span class="glyphicon glyphicon-thumbs-up"></span> Votar
         </a>
 
-        <a href="#" class="btn btn-hight btn-unvote hide">
-            <span class="glyphicon glyphicon-thumbs-down"></span> No votar
+        <a href="#" {!! Html::classes(['btn btn-hight btn-unvote', 'hidden' => !auth()->user()->hasVoted($ticket)]) !!}
+            title="Quitar el voto de este tutorial">
+            <span class="glyphicon glyphicon-thumbs-down"></span> Quitar voto
         </a>
-        --}}
+        @endif
         {{-- OPTIMIZAMOS ESTAS CONSULTAS SLQ
         <a href="{{ route('tickets.details', $ticket) }}">
             <span class="votes-count">{{ $ticket->voters()->count() }} votos</span>

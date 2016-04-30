@@ -3,6 +3,7 @@
 namespace Curso\Repositories;
 
 
+use Curso\Entities\Ticket;
 use Curso\Entities\User;
 
 class VoteRepository
@@ -18,7 +19,11 @@ class VoteRepository
 
     public function unvote(User $user, Ticket $ticket)
     {
-        $user->voted()->detach($ticket);
+        if($user->hasVoted($ticket)) {
+            $user->voted()->detach($ticket);
+            return true;
+        }else
+            return false;
     }
 
 }
