@@ -8,8 +8,9 @@
  */
 use Curso\Entities\User;
 use Curso\Entities\UserProfile;
+use Styde\Seeder\Seeder;
 
-class UserTableSeeder extends BaseSeeder
+class UserTableSeeder extends Seeder
 {
     public function getModel(){
         return new User;

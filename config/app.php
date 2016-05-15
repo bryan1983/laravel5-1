@@ -150,7 +150,7 @@ return [
 		'Curso\Providers\EventServiceProvider',
 		'Curso\Providers\RouteServiceProvider',
 		'Curso\Providers\HtmlServiceProvider',
-
+		'Curso\Providers\ViewServiceProvider'
 	],
 
 	/*

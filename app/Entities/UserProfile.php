@@ -2,6 +2,7 @@
 
 class UserProfile extends Entity {
 
+    protected $fillable = ['user_id', 'bio', 'twitter', 'birthdate', 'website'];
 	//
     public function getAgeAttribute()
     {

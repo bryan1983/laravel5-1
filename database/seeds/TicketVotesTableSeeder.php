@@ -1,6 +1,7 @@
 <?php
 use Curso\Entities\TicketVote;
 use Faker\Generator;
+use Styde\Seeder\Seeder;
 
 /**
  * Created by PhpStorm.
@@ -8,7 +9,7 @@ use Faker\Generator;
  * Date: 20/03/2016
  * Time: 19:37
  */
-class TicketVotesTableSeeder extends BaseSeeder
+class TicketVotesTableSeeder extends Seeder
 {
     public function getModel()
     {
@@ -18,8 +19,8 @@ class TicketVotesTableSeeder extends BaseSeeder
     public function getDummyData(Generator $faker, array $customValues = array())
     {
         return [
-            'ticket_id' => $this->getRandom('Ticket')->id,
-            'user_id'   => $this->getRandom('User')->id
+            'ticket_id' => $this->random('Ticket')->id,
+            'user_id'   => $this->random('User')->id
         ];
     }
 

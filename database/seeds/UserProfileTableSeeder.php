@@ -1,6 +1,7 @@
 <?php
 use Curso\Entities\UserProfile;
 use Faker\Generator;
+use Styde\Seeder\Seeder;
 
 /**
  * Created by PhpStorm.
@@ -8,7 +9,7 @@ use Faker\Generator;
  * Date: 20/03/2016
  * Time: 19:12
  */
-class UserProfileTableSeeder extends BaseSeeder
+class UserProfileTableSeeder extends Seeder
 {
 
     public function getModel()
@@ -19,7 +20,7 @@ class UserProfileTableSeeder extends BaseSeeder
     public function getDummyData(Generator $faker, array $customValues = array())
     {
         return [
-            'user_id' => $this->getRandom('User')->id,
+            'user_id' => $this->random('User')->id,
             'bio' => $faker->paragraph(rand(2, 4)),
             'twitter' => 'http://twitter.com/' . $faker->userName,
             'website' => 'http://www.' . $faker->domainName,

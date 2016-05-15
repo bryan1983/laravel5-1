@@ -28,7 +28,8 @@
         "Curso\\Providers\\ConfigServiceProvider",
         "Curso\\Providers\\EventServiceProvider",
         "Curso\\Providers\\RouteServiceProvider",
-        "Curso\\Providers\\HtmlServiceProvider"
+        "Curso\\Providers\\HtmlServiceProvider",
+        "Curso\\Providers\\ViewServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -47,7 +48,8 @@
         "Curso\\Providers\\BusServiceProvider",
         "Curso\\Providers\\ConfigServiceProvider",
         "Curso\\Providers\\EventServiceProvider",
-        "Curso\\Providers\\RouteServiceProvider"
+        "Curso\\Providers\\RouteServiceProvider",
+        "Curso\\Providers\\ViewServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

@@ -2,6 +2,7 @@
 
 use Curso\Entities\Ticket;
 use Faker\Generator;
+use Styde\Seeder\Seeder;
 
 /**
  * Created by PhpStorm.
@@ -9,7 +10,7 @@ use Faker\Generator;
  * Date: 20/03/2016
  * Time: 17:35
  */
-class TicketsTableSeeder extends BaseSeeder
+class TicketsTableSeeder extends Seeder
 {
     public function getModel()
     {
@@ -21,7 +22,7 @@ class TicketsTableSeeder extends BaseSeeder
         return [
             'title' => $faker->sentence(),
             'status' => $faker->randomElement(['open', 'open', 'closed']),
-            'user_id' => $this->getRandom('User')->id
+            'user_id' => $this->random('User')->id
         ];
     }
 
