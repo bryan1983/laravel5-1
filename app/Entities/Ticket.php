@@ -6,7 +6,7 @@ namespace Curso\Entities;
 class Ticket extends Entity
 {
 
-    protected $fillable = ['title', 'status'];
+    protected $fillable = ['title', 'link', 'status'];
 
     public function comments()
     {

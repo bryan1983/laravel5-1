@@ -9,7 +9,14 @@
                 @include('tickets/partials/estado', compact('ticket'))
             </h2>
 
-            @if(Session::has('success'))
+            @if($ticket->link)
+                <p>
+                    <a href="{{ $ticket->link }}" rel="nofollow" target="_blank"  class="btn btn-info pull-right">Ver recurso</a>
+                </p>
+            @endif
+
+
+        @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{ Session::get('success') }}
                 </div>
@@ -56,7 +63,6 @@
                 <div class="form-group">
                     {!! Form::label('link', trans('tickets.form.details.links')) !!}
                     {!! Form::text('link', null, ['class' => 'form-control']) !!}
-                    <!-- <input class="form-control" name="link" type="text" id="link"> -->
                 </div>
                 {!! Form::submit(trans('tickets.form.details.submit'), ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}

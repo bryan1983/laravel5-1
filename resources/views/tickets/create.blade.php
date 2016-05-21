@@ -15,7 +15,11 @@
                         'class' => 'form-control',
                         'placeholder' => 'Dinos que tutorial quieres que desarrollemos para Laravel'
                     ]) !!}
+                </div>
 
+                <div class="form-group">
+                    {!! Form::label('link', 'Enlace') !!}
+                    {!! Form::text('link', null, ['class' => 'form-control', 'placeholder' => 'Escribe el enlace del tutorial']) !!}
                 </div>
                 <p>
                     <button type="submit" class="btn btn-primary">{{ trans('tickets.form.create.submit') }}</button>

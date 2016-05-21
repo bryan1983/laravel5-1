@@ -62,10 +62,12 @@ class TicketsController extends Controller
     public function store(Request $request, Guard $auth)
     {
         $this->validate($request, [
-            'title' => 'required|max:120'
+            'title' => 'required|max:120',
+            'link'  => 'url'
         ]);
 
-        $ticket = $this->TicketRepository->openNew($auth->user(), $request->get('title'));
+        $ticket = $this->TicketRepository->openNew($auth->user(), $request->get('title'), $request->get('link'));
+
         return Redirect::route('tickets.details', $ticket->id);
     }
 }
