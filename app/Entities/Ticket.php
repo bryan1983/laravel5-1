@@ -34,4 +34,21 @@ class Ticket extends Entity
     {
         return $this->status == 'open';
     }
+
+    public function assignResource($commentId){
+        if(is_numeric($commentId)){
+            $comment = TicketComment::findOrFail($commentId);
+        }
+
+        if($comment->link == '' || $this->id != $comment->ticket_id){
+            abort(404);
+        }
+
+        $this->link = $comment->link;
+        $this->status = 'closed';
+        $this->save();
+
+        $comment->selected = true;
+        $comment->save();
+    }
 }

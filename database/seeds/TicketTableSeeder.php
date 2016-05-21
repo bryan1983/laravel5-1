@@ -10,7 +10,7 @@ use Styde\Seeder\Seeder;
  * Date: 20/03/2016
  * Time: 17:35
  */
-class TicketsTableSeeder extends Seeder
+class TicketTableSeeder extends Seeder
 {
     public function getModel()
     {

@@ -54,6 +54,12 @@ class TicketsController extends Controller
         return view('tickets/details', compact('ticket'));
     }
 
+    public function select($ticketId, $commentId){
+        $ticket = $this->TicketRepository->findOrFail($ticketId);
+        $ticket->assignResource($commentId);
+        return Redirect::back();
+    }
+
     public function create()
     {
         return view('tickets.create');
