@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="curso-laravel">
+  <component name="PublishConfigData" serverName="curso-laravel-5">
     <serverData>
-      <paths name="curso-laravel">
+      <paths name="curso-laravel-5">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="curso-laravel-5" />
+            <mapping local="$PROJECT_DIR$" web="laravel/curso-laravel-5" />
           </mappings>
         </serverdata>
       </paths>
