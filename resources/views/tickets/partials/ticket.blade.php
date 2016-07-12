@@ -5,15 +5,15 @@
     </h4>
     <p>
         @if(Auth::check())
-        <a href="#" {!! Html::classes(['btn btn-primary btn-vote', 'hidden' => auth()->user()->hasVoted($ticket)]) !!}
-            title="Votar por este tutorial">
-            <span class="glyphicon glyphicon-thumbs-up"></span> Votar
-        </a>
+            <a href="#" {!! Html::classes(['btn btn-primary btn-vote', 'hidden' => auth()->user()->hasVoted($ticket)]) !!}
+                title="Votar por este tutorial">
+                <span class="glyphicon glyphicon-thumbs-up"></span> Votar
+            </a>
 
-        <a href="#" {!! Html::classes(['btn btn-hight btn-unvote', 'hidden' => !auth()->user()->hasVoted($ticket)]) !!}
-            title="Quitar el voto de este tutorial">
-            <span class="glyphicon glyphicon-thumbs-down"></span> Quitar voto
-        </a>
+            <a href="#" {!! Html::classes(['btn btn-hight btn-unvote', 'hidden' => !auth()->user()->hasVoted($ticket)]) !!}
+                title="Quitar el voto de este tutorial">
+                <span class="glyphicon glyphicon-thumbs-down"></span> Quitar voto
+            </a>
         @endif
         {{-- OPTIMIZAMOS ESTAS CONSULTAS SLQ
         <a href="{{ route('tickets.details', $ticket) }}">

@@ -15,7 +15,7 @@ class DatabaseSeeder extends BaseSeeder {
 	protected $seeders = array(
 		'User',
 		'UserProfile',
-		'Tickets',
+		'Ticket',
 		'TicketVotes',
 		'TicketComments'
 	);

@@ -10,6 +10,6 @@ class TicketPolicy
 {
     public function selectResource(User $user, Ticket $ticket)
     {
-        return $user->id == $ticket->user_id;
+        return $user->id === $ticket->user_id;
     }
 }

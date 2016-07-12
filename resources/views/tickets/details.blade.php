@@ -74,17 +74,19 @@
                 <p><strong>{{ $comment->user->full_name }}</strong></p>
                 <p>{{ $comment->comment }}</p>
                 @if($comment->link)
-                <p>
-                    <a href="{{ $comment->link }}" rel="nofollow" target="_blank">
-                        {{ $comment->link }}
-                    </a>
-                </p>
-
-                {!! Form::open(['route' => ['tickets.select', $ticket, $comment]]) !!}
                     <p>
-                        <button type="submit" class="btn btn-primary">Seleccionar tutorial</button>
+                        <a href="{{ $comment->link }}" rel="nofollow" target="_blank">
+                            {{ $comment->link }}
+                        </a>
                     </p>
-                {!! Form::close() !!}
+
+                    @can('selectResource', $ticket)
+                        {!! Form::open(['route' => ['tickets.select', $ticket, $comment]]) !!}
+                            <p>
+                                <button type="submit" class="btn btn-primary">Seleccionar tutorial</button>
+                            </p>
+                        {!! Form::close() !!}
+                    @endcan
                 @endif
                 <p class="date-t">
                     <span class="glyphicon glyphicon-time"></span>

@@ -61,13 +61,13 @@ class ResourceTest extends TestCase
 
         // Then
         $this->seeInDatabase('tickets', [
-            'id' => $ticket->id,
+            'id'        => $ticket->id,
             'status'    => 'closed',
             'link'      => $this->link
         ]);
 
         $this->seeInDatabase('ticket_comments', [
-            'ticket_id' => $ticket->id,
+            'id'        => $comment->id,
             'selected'  => true
         ]);
 

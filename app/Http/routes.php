@@ -41,12 +41,12 @@ Route::get('/tutoriales', [
 ]);
 
 Route::get('/solicitud/{id}', [
-	'as'	=> 'tickets.details',
+	'as'		=> 'tickets.details',
 	'uses'	=> 'TicketsController@details'
 ]);
 
 Route::post('/solicitud/{id}/seleccionar/{id_comment}', [
-	'as'	=> 'tickets.select',
+	'as'		=> 'tickets.select',
 	'uses'	=> 'TicketsController@select'
 ]);
 /* Tickets */
@@ -56,13 +56,14 @@ Route::controllers([
 	'password' => 'Auth\PasswordController'
 ]);
 
-// Creamos un grupo de rutas para el módulo de auth
+// Creamos un grupo de rutas para el mï¿½dulo de auth
 Route::group(['middleware' => ['auth']], function(){
 	// Crear Solicitud
 	Route::get('/solicitar', [
 		'as' 	=> 'tickets.create',
 		'uses'	=> 'TicketsController@create'
 	]);
+
 	Route::post('/solicitar', [
 		'as'	=> 'tickets.store',
 		'uses'	=> 'TicketsController@store'
@@ -85,7 +86,7 @@ Route::group(['middleware' => ['auth']], function(){
 	]);
 });
 
-// Creamos una ruta para el módulo de usuarios
+// Creamos una ruta para el mï¿½dulo de usuarios
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'namespace' => 'Admin'], function(){
 	Route::resource('users', 'UsersController');
 });

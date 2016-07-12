@@ -23,7 +23,8 @@ class UserTableSeeder extends Seeder
             'last_name' => $faker->lastName,
             'email' => $faker->unique()->email,
             'password' => bcrypt('123456'),
-            'type' => $faker->randomElement(['editor', 'contributor', 'subscriber', 'user'])
+            'type' => $faker->randomElement(['editor', 'contributor', 'subscriber', 'user']),
+            'role' => 'user'
         ];
     }
 
@@ -35,10 +36,11 @@ class UserTableSeeder extends Seeder
     private function createAdmin(){
         $this->create([
             'first_name'=> 'Abraham',
-            'last_name' => 'Gómez',
+            'last_name' => 'GÃ³mez',
             'email'     => 'abri.gomez@gmail.com',
             'password'  => bcrypt('lolailo'),
-            'type'      => 'admin'
+            'type'      => 'admin',
+            'role'      => 'admin'
         ]);
 
         UserProfile::create([
