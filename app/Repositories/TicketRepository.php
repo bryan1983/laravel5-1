@@ -13,7 +13,7 @@ class TicketRepository extends BaseRepository
 
     /**
      * Utilizamos subconsultas SQL para optimizar las llamadas SQL que realiza el ORM a la hora de
-     * traernos el número de votos de un ticket y el número de comentarios. Esto nos ahorraríamos
+     * traernos el nï¿½mero de votos de un ticket y el nï¿½mero de comentarios. Esto nos ahorrarï¿½amos
      * dos consultas por ticket en el listado
      *
      * SELECT t.*,
@@ -22,12 +22,21 @@ class TicketRepository extends BaseRepository
      * FROM tickets t
      * WHERE 1
      */
+    protected function getCommentsList(){
+      return '( SELECT COUNT(*) FROM ticket_comments WHERE ticket_comments.ticket_id = tickets.id )';
+    }
+
+    protected function getVotesList(){
+      return '( SELECT COUNT(*) FROM ticket_votes WHERE ticket_votes.ticket_id = tickets.id )';
+    }
+
+
     protected function selectTicketList()
     {
         return $this->newQuery()->selectRaw(
             'tickets.*, '
-            . ' ( SELECT COUNT(*) FROM ticket_comments WHERE ticket_comments.ticket_id = tickets.id ) as num_comments, '
-            . ' ( SELECT COUNT(*) FROM ticket_votes WHERE ticket_votes.ticket_id = tickets.id ) as num_votes'
+            . $this->getCommentsList() . ' as num_comments, '
+            . $this->getVotesList() . ' as num_votes'
         )->with('author');
     }
 
@@ -35,6 +44,14 @@ class TicketRepository extends BaseRepository
     {
         return $this->selectTicketList()
                     ->orderBy('created_at','DESC')
+                    ->paginate(5);
+    }
+
+    public function paginatePopular()
+    {
+        return $this->selectTicketList()
+                    ->whereRaw($this->getVotesList() . '>= 4')
+                    ->orderBy('num_votes', 'DESC')
                     ->paginate(5);
     }
 
